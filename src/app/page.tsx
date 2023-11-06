@@ -1,33 +1,17 @@
-import Image from 'next/image'
-import Link from 'next/link';
-import { Movie, Movies } from './types/sharedTypes';
+"use client"
 
-export default async function Home() {
-  const apiKey = process.env.TMDB_API_KEY;
-  const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`)
-  const data: Movies = await res.json();
+import { useQuery } from '@tanstack/react-query';
+import { Movies } from './types/sharedTypes';
+import MovieOverview from '@/components/organisms/MovieOverview';
 
-  return (
-    <main>
-      <h1>Popular Movies</h1>
-        <ul>
-          {data.results.map((movie: Movie) => (
-            <li key={movie.id}>
-              <Link href={`/movie/${movie.id}`}>
-                  <Image 
-                    src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                    width={200}
-                    height={200}
-                    alt={movie.title}
-                  />
-                <h2>{movie.title}</h2>
+export default function Home() {
+  const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+  const { data, isLoading } = useQuery<Movies>({
+    queryKey: ["movies"],
+    queryFn: () => fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`).then((res) => res.json()),
+  });
 
-                <span>Released on {movie.release_date} - {movie.vote_average}</span>
-              </Link>
-               
-            </li>
-          ))}
-        </ul>
-    </main>
-  )
+  if (isLoading || !data) return <div>Loading...</div>;
+
+  return <MovieOverview data={data} />
 }
