@@ -5,12 +5,15 @@ import Image from 'next/image'
 import { Movie, Movies } from "@/app/types/sharedTypes";
 import SearchBar from "../molecules/SearchBar";
 import Button from "../atoms/Button";
+import { useSession, getSession } from "next-auth/react"
 
 interface Props {
     data: Movies
 }
 
 export default function MovieOverview({data}: Props) {
+    const { data: session, status } = useSession();
+
     const handleAddToFavorites = (movie: Movie) => {
         const storedMovies = JSON.parse(localStorage.getItem('favoriteMovies') || '[]');
         const existingMovieIndex = storedMovies.findIndex((storedMovie: Movie) => storedMovie.id === movie.id);;
@@ -27,8 +30,6 @@ export default function MovieOverview({data}: Props) {
 
     return(
         <div>
-            <h1>Popular movies</h1>
-
             <SearchBar />
             
              <ul>
@@ -46,7 +47,7 @@ export default function MovieOverview({data}: Props) {
                             <span>Released on {movie.release_date} - {movie.vote_average}</span>
                         </Link>
 
-                        <Button text="Favorite" type="button" onClick={() => handleAddToFavorites(movie)} />
+                        {status === "authenticated" && <Button text="Favorite" type="button" onClick={() => handleAddToFavorites(movie)} />}
                     </li>
                 ))}
             </ul>
