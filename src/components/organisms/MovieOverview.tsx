@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from 'next/image'
 import { Movie, Movies } from "@/app/types/sharedTypes";
-// import SearchBar from "../molecules/SearchBar";
+import SearchBar from "../molecules/SearchBar";
 
 interface Props {
     data: Movies
@@ -13,8 +13,9 @@ export default function MovieOverview({data}: Props) {
     return(
         <div>
             <h1>Popular movies</h1>
+
+            <SearchBar />
             
-            {/* <SearchBar /> */}
              <ul>
                 {data.results.map((movie: Movie) => (
                     <li key={movie.id}>
