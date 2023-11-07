@@ -1,11 +1,9 @@
 "use client"
 
-import Link from "next/link";
-import Image from 'next/image'
 import { Movie, Movies } from "@/app/types/sharedTypes";
 import SearchBar from "../molecules/SearchBar";
-import Button from "../atoms/Button";
 import { useSession, getSession } from "next-auth/react"
+import MovieCard from "../molecules/MovieCard";
 
 interface Props {
     data: Movies
@@ -25,30 +23,20 @@ export default function MovieOverview({data}: Props) {
         }
 
         localStorage.setItem('favoriteMovies', JSON.stringify(storedMovies));
-        console.log(storedMovies)
     }
 
     return(
         <div>
             <SearchBar />
             
-             <ul>
+             <ul className="grid grid-cols-4 gap-4">
                 {data.results.map((movie: Movie) => (
-                    <li key={movie.id}>
-                        <Link href={`/movie/${movie.id}`}>
-                            <Image 
-                                src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                                width={200}
-                                height={200}
-                                alt={movie.title}
-                            />
-                            <h2>{movie.title}</h2>
-
-                            <span>Released on {movie.release_date} - {movie.vote_average}</span>
-                        </Link>
-
-                        {status === "authenticated" && <Button text="Favorite" type="button" onClick={() => handleAddToFavorites(movie)} />}
-                    </li>
+                    <MovieCard 
+                        key={movie.id} 
+                        movie={movie}
+                        addToFavorites={() => handleAddToFavorites(movie)} 
+                        status={status} 
+                    />
                 ))}
             </ul>
         </div>
