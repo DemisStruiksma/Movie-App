@@ -11,7 +11,7 @@ export default async function Page({params}: {
     const movie: Movie = await res.json();
 
     return (
-        <main className="flex flex-row items-start justify-center py-8">
+        <div className="flex flex-row items-start justify-center py-8">
             <div className="w-1/2">
                 <Image
                 src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
@@ -33,6 +33,6 @@ export default async function Page({params}: {
                 </div>
                 <p className="text-gray-600 text-lg text-justify">{movie.overview}</p>
             </div>
-        </main>
+        </div>
     )
 }
