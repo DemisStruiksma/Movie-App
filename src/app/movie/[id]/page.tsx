@@ -27,7 +27,7 @@ export default async function Page({params}: {
                 <div className="flex items-center mb-4">
                     <span className="text-gray-500 mr-2">{movie.release_date}</span>
                     
-                    <span className="bg-yellow-400 rounded-full text-white px-2 py-1 text-sm font-semibold">
+                    <span className="bg-yellow-600 rounded-full text-white px-2 py-1 text-sm font-semibold">
                         {movie.vote_average}
                     </span>
                 </div>

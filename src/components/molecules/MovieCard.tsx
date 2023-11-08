@@ -42,8 +42,9 @@ export default function MovieCard({movie, status, addToFavorites}: Props) {
                 <h2 className="mt-2 text-xl font-semibold truncate">{movie.title}</h2>
                 
                 <p className="text-gray-600 text-sm py-4">
-                    {movie.release_date} 
-                    <span className="bg-yellow-600 rounded-full text-white px-2 py-1 text-sm font-semibold">
+                    {movie.release_date}
+                    
+                    <span className="bg-yellow-600 rounded-full text-white ml-2 px-2 py-1 text-sm font-semibold">
                         {movie.vote_average}
                     </span>
                 </p>
@@ -56,7 +57,7 @@ export default function MovieCard({movie, status, addToFavorites}: Props) {
                         onClick={handleAddToFavorites}
                         customClassNames="mt-2 px-4 py-2 rounded-lg text-white bg-slate-800 hover:text-yellow-400"
                     >
-                    <FaHeart className={isFavorite ? 'text-yellow-400' : ''} />
+                        <FaHeart className={isFavorite ? 'text-yellow-400' : ''} />
                     </Button>
                 </div>  
             )}

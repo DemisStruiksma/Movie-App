@@ -2,6 +2,7 @@
 
 import MovieOverview from "@/components/organisms/MovieOverview";
 import { useSession, getSession } from "next-auth/react"
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function FavoritesPage() {
@@ -18,7 +19,7 @@ export default function FavoritesPage() {
     }
 
     if (status === "unauthenticated") {
-        return <div>Access Denied</div>
+        return <div>Access Denied, please <Link href="api/auth/signin" className="text-blue-500 hover:text-blue-600">login</Link> to access this page.</div>
     }
 
     return (
