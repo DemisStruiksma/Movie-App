@@ -37,6 +37,7 @@ export default function MovieCard({movie, status, addToFavorites}: Props) {
                     height={400}
                     alt={movie.title}
                     className="rounded-lg"
+                    priority
                 />
                 
                 <h2 className="mt-2 text-xl font-semibold truncate">{movie.title}</h2>

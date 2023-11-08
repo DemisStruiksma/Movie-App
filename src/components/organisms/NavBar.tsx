@@ -26,7 +26,7 @@ export default function NavBar() {
          <ul className="container mx-auto px-10 py-2 flex flex-row items-center space-x-6">
                {status === "authenticated" && session?.user && session.user.image && session.user.name && (
                   <li>
-                     <Image className="rounded-full" src={session.user.image} alt={session.user.name} width={50} height={50} />
+                     <Image className="rounded-full" src={session.user.image} alt={session.user.name} width={50} height={50} priority />
                   </li>
                )}
 
