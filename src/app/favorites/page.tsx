@@ -23,6 +23,9 @@ export default function FavoritesPage() {
     }
 
     return (
-        <MovieOverview data={{results: storedMovies}} searchBar={false} />
+        <div>
+            {session?.user && <h2 className="mb-6">Hi, {session.user?.name}! Here is a list of your favorite movie(s):</h2>}
+            <MovieOverview data={{results: storedMovies}} searchBar={false} />
+        </div>
     )
 }
