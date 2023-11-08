@@ -15,12 +15,5 @@ export default function Home() {
 
   if (isLoading || !data) return <div>Loading...</div>;
 
-  return (
-    <div>
-      {status}
-      
-      {status === 'authenticated' && session.user?.name}
-      <MovieOverview data={data} />
-    </div>
-  )
+  return <MovieOverview data={data} searchBar={true} />;
 }

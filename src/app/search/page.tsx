@@ -20,11 +20,9 @@ export default function SearchPage() {
   if (isLoading) return <div>Loading...</div>;    
 
   return (
-    <div>
-        <h1>Search Results for: {searchTerm}</h1>
-        
+    <div>        
         {data && (
-            <MovieOverview data={data} />
+            <MovieOverview data={data} searchBar={true} />
         )}
     </div>
   );

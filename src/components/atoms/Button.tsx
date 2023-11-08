@@ -1,13 +1,17 @@
 interface Props {
-    text: string,
+    text?: string,
     type: React.ButtonHTMLAttributes<HTMLButtonElement>["type"],
-    onClick: () => void;
+    children?: React.ReactNode;
+    customClassNames?: string;
+    onClick?: () => void;
 }
 
-export default function Button({text, type, onClick }: Props) {
+export default function Button({text, type, children, customClassNames, onClick }: Props) {
     return (
-        <button type={type} onClick={onClick}>
+        <button type={type} onClick={onClick} className={`text-white ${customClassNames}`}>
             {text}
+
+            {children}
         </button>
     )
 }

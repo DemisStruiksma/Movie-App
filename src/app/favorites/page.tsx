@@ -2,12 +2,17 @@
 
 import MovieOverview from "@/components/organisms/MovieOverview";
 import { useSession, getSession } from "next-auth/react"
+import { useEffect, useState } from "react";
 
 export default function FavoritesPage() {
     const { data: session, status } = useSession();
+    // const [favoriteMovies, setFavoriteMovies] = useState([]);
     const storedMovies = JSON.parse(localStorage.getItem('favoriteMovies') || '[]');
-    const data = { results: storedMovies };
 
+    // useEffect(() => {
+    //         setFavoriteMovies(storedMovies);
+    //   }, [storedMovies]);
+      
     if (status === "loading") {
         return <div>Loading...</div>
     }
@@ -17,6 +22,6 @@ export default function FavoritesPage() {
     }
 
     return (
-        <MovieOverview data={data} />
+        <MovieOverview data={{results: storedMovies}} searchBar={false} />
     )
 }

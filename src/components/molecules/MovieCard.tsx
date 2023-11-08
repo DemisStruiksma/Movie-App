@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link";
 import Image from "next/image";
 import Button from "../atoms/Button";
@@ -37,18 +39,22 @@ export default function MovieCard({movie, status, addToFavorites}: Props) {
                     className="rounded-lg"
                 />
                 
-                <h2 className="mt-2 text-xl font-semibold">{movie.title}</h2>
+                <h2 className="mt-2 text-xl font-semibold truncate">{movie.title}</h2>
                 
-                <p className="text-gray-600 text-sm">
-                    Released on {movie.release_date} - Rating: {movie.vote_average}
+                <p className="text-gray-600 text-sm py-4">
+                    {movie.release_date} 
+                    <span className="bg-yellow-600 rounded-full text-white px-2 py-1 text-sm font-semibold">
+                        {movie.vote_average}
+                    </span>
                 </p>
             </Link>
             
             {status === "authenticated" && (
                 <div className="mt-auto">
                     <Button
-                    type="button"
-                    onClick={handleAddToFavorites}
+                        type="button"
+                        onClick={handleAddToFavorites}
+                        customClassNames="mt-2 px-4 py-2 rounded-lg text-white bg-slate-800 hover:text-yellow-400"
                     >
                     <FaHeart className={isFavorite ? 'text-yellow-400' : ''} />
                     </Button>

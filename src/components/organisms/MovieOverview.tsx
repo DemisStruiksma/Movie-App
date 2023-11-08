@@ -7,9 +7,10 @@ import MovieCard from "../molecules/MovieCard";
 
 interface Props {
     data: Movies
+    searchBar: boolean;
 }
 
-export default function MovieOverview({data}: Props) {
+export default function MovieOverview({data, searchBar}: Props) {
     const { data: session, status } = useSession();
 
     const handleAddToFavorites = (movie: Movie) => {
@@ -27,7 +28,7 @@ export default function MovieOverview({data}: Props) {
 
     return(
         <div>
-            <SearchBar />
+            {searchBar && <SearchBar />}
             
              <ul className="grid grid-cols-4 gap-4">
                 {data.results.map((movie: Movie) => (
