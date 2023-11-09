@@ -1,19 +1,23 @@
 "use client"
 
 import MovieOverview from "@/components/organisms/MovieOverview";
-import { useSession, getSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Movie } from "../types/sharedTypes";
 
 export default function FavoritesPage() {
     const { data: session, status } = useSession();
-    // const [favoriteMovies, setFavoriteMovies] = useState([]);
-    const storedMovies = JSON.parse(localStorage.getItem('favoriteMovies') || '[]');
+    const [favoriteMovies, setFavoriteMovies] = useState(() => {
+        const storedMovies = JSON.parse(localStorage.getItem('favoriteMovies') || '[]');
+        return storedMovies;
+    });
 
-    // useEffect(() => {
-    //         setFavoriteMovies(storedMovies);
-    //   }, [storedMovies]);
-      
+    const handleRemoveFromFavorites = (movieId: number) => {
+        const updatedMovies = favoriteMovies.filter((movie: Movie) => movie.id !== movieId);
+        setFavoriteMovies(updatedMovies);
+    };
+  
     if (status === "loading") {
         return <div>Loading...</div>
     }
@@ -24,8 +28,11 @@ export default function FavoritesPage() {
 
     return (
         <div>
-            {session?.user && <h2 className="mb-6">Hi, {session.user?.name}! Here is a list of your favorite movie(s):</h2>}
-            <MovieOverview data={{results: storedMovies}} searchBar={false} />
+            {session?.user && 
+                <h2 className="mb-6">
+                    Hi, {session.user?.name}! {favoriteMovies.length > 0 ? `Here is a list of your favorite movie(s):` : `You haven't added any movie to your favorites yet.`}
+                </h2>}
+            <MovieOverview data={{ results: favoriteMovies }} searchBar={false} onRemoveFromFavorites={handleRemoveFromFavorites} />
         </div>
     )
 }

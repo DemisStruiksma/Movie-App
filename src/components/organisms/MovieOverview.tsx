@@ -2,15 +2,16 @@
 
 import { Movie, Movies } from "@/app/types/sharedTypes";
 import SearchBar from "../molecules/SearchBar";
-import { useSession, getSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import MovieCard from "../molecules/MovieCard";
 
 interface Props {
     data: Movies
     searchBar: boolean;
+    onRemoveFromFavorites?: (movieId: number) => void;
 }
 
-export default function MovieOverview({data, searchBar}: Props) {
+export default function MovieOverview({data, searchBar, onRemoveFromFavorites}: Props) {
     const { data: session, status } = useSession();
 
     const handleAddToFavorites = (movie: Movie) => {
@@ -20,6 +21,10 @@ export default function MovieOverview({data, searchBar}: Props) {
         if (existingMovieIndex === -1) {
             storedMovies.push(movie);
         } else {
+            if(onRemoveFromFavorites) {
+                onRemoveFromFavorites(movie.id);
+            }
+
             storedMovies.splice(existingMovieIndex, 1);
         }
 
