@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import { Movies } from '../types/sharedTypes';
 import MovieOverview from '@/components/organisms/MovieOverview';
+import SearchBar from '@/components/molecules/SearchBar';
 
 export default function SearchPage() {
   const searchParams = useSearchParams();
@@ -21,9 +22,9 @@ export default function SearchPage() {
 
   return (
     <div>        
-        {data && (
-            <MovieOverview data={data} searchBar={true} />
-        )}
+        {data && data.results?.length > 0 ?
+          <MovieOverview data={data} searchBar={true} />
+        : <><SearchBar /><p>No movies found for {searchTerm}, try another search term.</p></>}
     </div>
   );
 }
