@@ -16,8 +16,6 @@ export default function SearchPage() {
       queryFn: () => fetch(`https://api.themoviedb.org/3/search/movie?query=${searchTerm}?&api_key=${apiKey}`).then((res) => res.json()),
   });
 
-  console.log(data)
-
   if (isLoading) return <div>Loading...</div>;    
 
   return (
