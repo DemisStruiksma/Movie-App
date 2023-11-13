@@ -9,10 +9,9 @@ export default function Page({params}: {
         id: string;
     }
 }) {
-    const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
     const { data, isLoading } = useQuery<Movie>({
         queryKey: ["movie"],
-        queryFn: () => fetch(`https://api.themoviedb.org/3/movie/${params.id}?api_key=${apiKey}`).then((res) => res.json()),
+        queryFn: () => fetch(`http://localhost:3000/api/tmdb/movie/${params.id}`).then((res) => res.json()),
     });
 
     if (isLoading && !data) return <div>Loading...</div>;

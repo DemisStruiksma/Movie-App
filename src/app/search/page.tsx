@@ -9,11 +9,10 @@ import SearchBar from '@/components/molecules/SearchBar';
 export default function SearchPage() {
   const searchParams = useSearchParams();
   const searchTerm = searchParams.get('q')
-  const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
   const { data, isLoading } = useQuery<Movies>({
       queryKey: ["searchResults", searchTerm],
-      queryFn: () => fetch(`https://api.themoviedb.org/3/search/movie?query=${searchTerm}?&api_key=${apiKey}`).then((res) => res.json()),
+      queryFn: () => fetch(`http://localhost:3000/api/tmdb/search?query=${searchTerm}`).then((res) => res.json()),
   });
 
   if (isLoading) return <div>Loading...</div>;    
